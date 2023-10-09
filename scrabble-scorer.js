@@ -40,14 +40,14 @@ function initialPrompt() {
    return inputWord;
 };
 
-function simpleScoreFunc(word) {
+function simpleScorer(word) {
    word = word.toUpperCase();
    simpleScoreArr = word.split('');
    letterPoints = simpleScoreArr.length;
    return letterPoints;
 };
 
-function vowelBonusFunc(word){
+function vowelBonusScorer(word){
    word = word.toUpperCase();
    vowelBonusArr = word.split('');
    letterPoints = 0;
@@ -55,14 +55,14 @@ function vowelBonusFunc(word){
       if (vowelBonusArr[i] === 'A' || vowelBonusArr[i] === 'E' || vowelBonusArr[i] === 'I' || vowelBonusArr[i] === 'O' || vowelBonusArr[i] === 'U'){
          letterPoints += 3;
       } else {
-         letterPoints +=1;
+         letterPoints += 1;
       }
    }
    return letterPoints;
 };
 
-function scrabbleScoreFunc(word){
-   word = word.toUpperCase();
+function scrabbleScorer(word){
+   word = word.toLowerCase();
    letterPoints = 0;
    for(let i = 0; i < word.length; i++){
       letterPoints += newPointStructure[word[i]];
@@ -71,25 +71,25 @@ function scrabbleScoreFunc(word){
 };
 
 
-let simpleScorer = {
+let simpleScoreObject = {
    name: 'Simple Score',
    description: 'Each letter in the word is worth 1 point.',
-   scoringFunction: simpleScoreFunc
+   scorerFunction: simpleScorer
 };
 
-let vowelBonusScorer = {
+let vowelBonusScoreObject = {
    name: 'Bonus Vowels',
    description: 'Vowels are worth 3 points, consonants are worth 1 point.',
-   scoringFunction: vowelBonusFunc
+   scorerFunction: vowelBonusScorer
 };
 
-let scrabbleScorer = {
+let scrabbleScoreObject = {
    name: 'Scrabble',
    description: 'Uses Scrabble traditional scoring.',
-   scoringFunction: scrabbleScoreFunc
+   scorerFunction: scrabbleScorer
 }
 
-const scoringAlgorithms = [simpleScorer, vowelBonusScorer, scrabbleScorer];
+const scoringAlgorithms = [simpleScoreObject, vowelBonusScoreObject, scrabbleScoreObject];
 
 function scorerPrompt() {
    console.log('Which scoring algorithm will you be using?\n');
@@ -106,7 +106,7 @@ function transform(pointStructure) {
    for(key in pointStructure) {
       for (let i = 0; i < pointStructure[key].length; i++){
          let newPoint = pointStructure[key][i];
-         newPoint = newPoint.toUpperCase();
+         newPoint = newPoint.toLowerCase();
          newPointSys[`${newPoint}`] = Number(key);
       }
    }
