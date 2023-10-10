@@ -98,7 +98,7 @@ function scorerPrompt() {
    }
    scorerSelection = input.question('Enter 0, 1, or 2: ');
    scorerSelection = Number(scorerSelection);
-   console.log(`Points for '${inputWord}': ${scoringAlgorithms[scorerSelection].scoringFunction(inputWord)}`);
+   console.log(`Points for '${inputWord}': ${scoringAlgorithms[scorerSelection].scorerFunction(inputWord)}`);
 };
 
 function transform(pointStructure) {
